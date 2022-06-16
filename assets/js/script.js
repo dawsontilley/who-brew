@@ -143,12 +143,6 @@ function check_postal_code(postal_code,pos,dis_effect) {
 			marker=new google.maps.Marker({
 				position: new google.maps.LatLng(lat,lon),
 				id: pos,
-				icon: {
-					url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-					labelOrigin: new google.maps.Point(75, 32),
-					size: new google.maps.Size(32,32),
-					anchor: new google.maps.Point(16,32)
-				},
 				animation: dis_effect,
 				map: map,
 			});
@@ -167,6 +161,7 @@ function check_postal_code(postal_code,pos,dis_effect) {
 		.catch(function(error) {
 			console.log(error);
 		});
+		console.log(markersArray);
 }
 
 function clearAnimation() {
@@ -240,13 +235,13 @@ function mouseout(){
 
 function marker_over(pos){
 	var infowindow = new google.maps.InfoWindow();
-	infowindow.setContent('<div class="map header">'+result[pos].name+'</div>');
+	infowindow.setContent('<h3 class="map header">'+result[pos].name+'</h3>');
 	for(var i=0;i<result.length;i++){
 		if (pos==markersArray[i].id) match=i;
 	}
 	infowindow.open(map, markersArray[match]);
 	activeInfoWindow=infowindow;
-	timer = setInterval(myTimer ,2000);
+	timer = setInterval(mouseout ,2000);
 	
 }
 
