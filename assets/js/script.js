@@ -2,7 +2,7 @@ var repoList = document.querySelector('ul');
 var fetchButton = document.getElementById("search");
 var openweatherkey = '5047b93d8c8a3e00e320b778163f5545';
 var googlekey = 'AIzaSyA5ury2VC7bslPGGb5hP-9OUTPdMF1fiIY';
-
+let zipcode = '';
 // `getApi` function is called when the `fetchButton` is clicked
 var DataObj = {
 	name: "",
@@ -236,8 +236,22 @@ function marker_over(pos){
 fetchButton.addEventListener('click', searchButtonHandler);
 document.querySelector("#shop_list").addEventListener("click", historyButtonHandler);
 
+//modal
+const modalBtn = document.querySelector('.modalBtn');
+const modalBg = document.querySelector('.modal-background');
+const modal = document.querySelector('.modal');
+const searchBtn = document.querySelector('.searchBtn');
+const zipInput = document.querySelector('.zipInput');
 
+modalBtn.addEventListener('click', () => {
+	modal.classList.add('is-active');
+})
 
-
+searchBtn.addEventListener('click', () => {
+	if(zipInput.value==''){
+		document.querySelector('.error').innerHTML = 'Please enter a valid Zip Code.';
+	}
+	else modal.classList.remove('is-active');
+})
 
 
