@@ -163,7 +163,7 @@ function check_postal_code(postal_code,pos) {
 function brewery_name(city_name){
 	display_city= city_name.charAt(0).toUpperCase() + city_name.slice(1);
 	result=[];
-  	var url= 'https://api.openbrewerydb.org/breweries?by_city='+city_name.replace(" ","_")+'&per_page=12';
+  	var url= 'https://api.openbrewerydb.org/breweries?by_city='+city_name.replace(" ","_")+'&per_page=10';
 
 	fetch(url)  
 	.then(function(response) { 
