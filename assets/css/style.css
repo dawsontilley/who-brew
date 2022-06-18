@@ -29,7 +29,8 @@ text-align: center;
   border-bottom-style:solid;
 }
 .btn, 
-.city_name{
+.city_name,
+.zipInput{
     display: block;
     margin-bottom: 10px;
     max-width: 90%;
@@ -66,7 +67,7 @@ p{
 
 #map {
     height:800px;;
-    width: 100%;
+    width: 70%;
     margin-top: 15px;
   }
 
@@ -76,4 +77,11 @@ p{
 #url{
     
     margin-left: 5%; 
+}
+#direction_detail{
+    width: 30%;
+    
+}
+#diestion{
+font-size: 14px;
 }
