@@ -2,7 +2,7 @@ var repoList = document.querySelector('ul');
 var fetchButton = document.getElementById("search");
 var openweatherkey = '5047b93d8c8a3e00e320b778163f5545';
 var googlekey = 'AIzaSyA5ury2VC7bslPGGb5hP-9OUTPdMF1fiIY';
-
+let zipcode = '';
 // `getApi` function is called when the `fetchButton` is clicked
 var DataObj = {
 	name: "",
@@ -24,6 +24,7 @@ var display_id;
 var timer;
 var activeInfoWindow;
 
+// create the city map
 function drawmap(lat,lon)
 {
     map = new google.maps.Map( document.getElementById( 'map' ), {
@@ -31,35 +32,50 @@ function drawmap(lat,lon)
       lat: lat,
       lng: lon
     },
-    zoom: 10
+    zoom: 11
   });
 }
 
-
-function create_marker(){
+// create or update the markers
+function update_marker(){
   // Create markers.
+  var match=-1;
   var cur_dis;
-  clearAnimation();
-  for (let i = 0; i < result.length; i++) {	
-	if (i==display_id) 	cur_dis=google.maps.Animation.BOUNCE;
-	else cur_dis=null;
-	check_postal_code(result[i].postal_code,i,cur_dis);
-
-  }
+  for (let pos = 0; pos < result.length; pos++) {	
+		for(var i=0;i < markersArray.length; i++) {
+			if (result[pos].id==markersArray[i].id) match=i;	
+		}
+		if (pos==display_id) cur_dis=google.maps.Animation.BOUNCE;
+		else cur_dis=null;
+		if (match<0){
+			marker=new google.maps.Marker({
+				position: new google.maps.LatLng(result[pos].lat,result[pos].lon),
+				id: pos,
+				animation: cur_dis,
+				map: map,
+			});
+			// create the DOM listener in Google map
+			google.maps.event.addListener(marker, "click", (e) => {
+				marker_click(pos);
+			});
+			google.maps.event.addListener(marker, "mouseover", (e) => {
+				marker_over(pos);
+			});
+			google.maps.event.addListener(marker, "mouseout", (e) => {
+				mouseout();
+			});
+				google.maps.event.addListener(marker,"touchstart",(e) => {
+				marker_click(pos);
+			});
+			markersArray.push(marker);
+		}
+		else {	
+			// update the existing marker animation status
+			markersArray[match].setAnimation(cur_dis);
+		}
+  	}
 }
-
-function marker_info(pos){
-	// Create markers.
-	console.log("here");
-	clearAnimation();
-	for (let i = 0; i < result.length; i++) {	
-	  if (i==display_id) 	cur_dis=google.maps.Animation.BOUNCE;
-	  else cur_dis=null;
-	  check_postal_code(result[i].postal_code,i,cur_dis);
-
-	}
-  }
-
+//create the shop list
 function Create_Button(){
 	document.getElementById("history").remove();
 	var newDiv = document.createElement("div");
@@ -71,14 +87,17 @@ function Create_Button(){
 		newButton.className = 'btn btn-secondary w-100' ;
 		newButton.id=i;
 		newDiv.appendChild(newButton);
+		if((result[i].lat==null)||(result[i].lon==null))
+		check_postal_code(result[i].postal_code,i);
 	}
 	document.getElementById("shop_list").appendChild(newDiv);
 	display_id=0;
 	diaplay_shop_info(display_id);
-	create_marker();	
+	update_marker();	
 	document.getElementById(display_id).setAttribute("style" , "color: red;");
  }
 
+ //display the shop information in the shop detail window
  function diaplay_shop_info(id){	
 	document.getElementById(display_id).setAttribute("style" , "color: white;");	
 	document.getElementById(id).setAttribute("style" , "color: red;");
@@ -91,12 +110,13 @@ function Create_Button(){
 	display_id=id;
  }
 
-
-function check_location(c_name) {
-	display_city= c_name.charAt(0).toUpperCase() + c_name.slice(1);
+//Call the API and check the city geometry detail
+function check_location(city_name) {
+	display_city= city_name.charAt(0).toUpperCase() + city_name.slice(1);
+	result=[];
+	markersArray=[];
 	var lat,lon;
-  	var url= 'https://maps.googleapis.com/maps/api/geocode/json?address='+c_name+'&key='+googlekey;
-	console.log(url);
+  	var url= 'https://maps.googleapis.com/maps/api/geocode/json?address='+city_name+'&key='+googlekey;
 	fetch(url)  
 		.then(function(response) { 
 		if (response.status >= 200 && response.status <= 299) {
@@ -106,10 +126,9 @@ function check_location(c_name) {
 		}
 		}) // Convert data to json
 		.then(function(data) {
-			console.log(data);
 			lat=data.results[0].geometry.location.lat;
 			lon=data.results[0].geometry.location.lng;
-			brewery_name(c_name);
+			brewery_name(city_name);
 		})
 		.finally(function(){
 			drawmap(lat,lon);
@@ -119,8 +138,8 @@ function check_location(c_name) {
 		});
 }
 
-
-function check_postal_code(postal_code,pos,dis_effect) {
+//check the geometry detail of the shop which does not have the Lat & Lon information
+function check_postal_code(postal_code,pos) {
 	var lat,lon;
 	var url= 'https://maps.googleapis.com/maps/api/geocode/json?key='+googlekey+'&components=postal_code:'+postal_code;
 	fetch(url)  
@@ -132,54 +151,18 @@ function check_postal_code(postal_code,pos,dis_effect) {
 		}
 		}) // Convert data to json
 		.then(function(data) {
-			if (data.status=='OK'){
-			lat=data.results[0].geometry.location.lat;
-			lon=data.results[0].geometry.location.lng;
-
-		}
+			result[pos].lat=data.results[0].geometry.location.lat;
+			result[pos].lon=data.results[0].geometry.location.lng;			
 		})
-		.finally(function(){
-		//	if (color=="#000000") dis_effect=null;
-		//	else dis_effect=google.maps.Animation.BOUNCE;
-			marker=new google.maps.Marker({
-				position: new google.maps.LatLng(lat,lon),
-				id: pos,
-				animation: dis_effect,
-				map: map,
-			});
-			google.maps.event.addListener(marker, "click", (e) => {
-				marker_click(pos);
-			});
-			  google.maps.event.addListener(marker, "mouseover", (e) => {
-				marker_over(pos);
-			});
-			google.maps.event.addListener(marker, "mouseout", (e) => {
-				mouseout();
-			});
-			google.maps.event.addListener(marker,"touchstart",(e) => {
-				marker_click(pos);
-			});
-			markersArray.push(marker);
-		})
-
 		.catch(function(error) {
 			console.log(error);
 		});
 }
 
-function clearAnimation() {
-	if (markersArray) {
-	  for (i in markersArray) {		
-		markersArray[i].setAnimation(null);
-	  }
-	}
-  }
-
-
+//Call API for getting the shop list of the city
 function brewery_name(city_name){
 	display_city= city_name.charAt(0).toUpperCase() + city_name.slice(1);
 	result=[];
-	markersArray=[];
   	var url= 'https://api.openbrewerydb.org/breweries?by_city='+city_name.replace(" ","_")+'&per_page=12';
 
 	fetch(url)  
@@ -194,6 +177,7 @@ function brewery_name(city_name){
 			result=[];
 			for(i=0;i<data.length;i++){
 				DataObj = {
+				id:i,
 				name: data[i].name,
 				lat: data[i].latitude,
 				lon: data[i].longitude,
@@ -207,7 +191,7 @@ function brewery_name(city_name){
 			};
 			result[i]=DataObj;
 		}
-		Create_Button();	
+		Create_Button();
 	})
 		.catch(function(error) {
 			console.log(error);
@@ -216,8 +200,10 @@ function brewery_name(city_name){
 
 
 function historyButtonHandler(event){
+	if (!isNaN(event.target.id)){
 	diaplay_shop_info(event.target.id);
-	create_marker();
+	update_marker();
+	}
 }
 
 function searchButtonHandler(event){
@@ -227,14 +213,13 @@ function searchButtonHandler(event){
 function marker_click(pos){
 	var match;
 	diaplay_shop_info(pos);
-	create_marker();
+	update_marker();
 }
 
 function mouseout(){
 	clearInterval(timer);
 	activeInfoWindow.close();
 }
-
 
 function marker_over(pos){
 	var infowindow = new google.maps.InfoWindow();
@@ -251,8 +236,22 @@ function marker_over(pos){
 fetchButton.addEventListener('click', searchButtonHandler);
 document.querySelector("#shop_list").addEventListener("click", historyButtonHandler);
 
+//modal
+const modalBtn = document.querySelector('.modalBtn');
+const modalBg = document.querySelector('.modal-background');
+const modal = document.querySelector('.modal');
+const searchBtn = document.querySelector('.searchBtn');
+const zipInput = document.querySelector('.zipInput');
 
+modalBtn.addEventListener('click', () => {
+	modal.classList.add('is-active');
+})
 
-
+searchBtn.addEventListener('click', () => {
+	if(zipInput.value==''){
+		document.querySelector('.error').innerHTML = 'Please enter a valid Zip Code.';
+	}
+	else modal.classList.remove('is-active');
+})
 
 
