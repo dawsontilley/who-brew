@@ -19,15 +19,21 @@ var DataObj = {
 
 var result=[];
 var markersArray = [];
+var directionArray=[];
 var display_city;
 var display_id;
 var timer;
 var activeInfoWindow;
+var map;
+var display;
+var services;
+var current_lat;
+var current_lon;
 
 // create the city map
 function drawmap(lat,lon)
 {
-    map = new google.maps.Map( document.getElementById( 'map' ), {
+    map = new google.maps.Map( document.getElementById( 'map'), {
     center: {
       lat: lat,
       lng: lon
@@ -151,8 +157,17 @@ function check_postal_code(postal_code,pos) {
 		}
 		}) // Convert data to json
 		.then(function(data) {
-			result[pos].lat=data.results[0].geometry.location.lat;
-			result[pos].lon=data.results[0].geometry.location.lng;			
+			if (pos>=0) {
+				result[pos].lat=data.results[0].geometry.location.lat;
+				result[pos].lon=data.results[0].geometry.location.lng;	
+			}
+			else	{				
+				current_lat=data.results[0].geometry.location.lat;
+				current_lon=data.results[0].geometry.location.lng;	
+			}	
+		})
+		.finally(function(){
+			if (pos<0) search_direction();
 		})
 		.catch(function(error) {
 			console.log(error);
@@ -233,25 +248,78 @@ function marker_over(pos){
 	
 }
 
-fetchButton.addEventListener('click', searchButtonHandler);
-document.querySelector("#shop_list").addEventListener("click", historyButtonHandler);
+
+function search_direction() {
+	var start = new google.maps.LatLng (current_lat,current_lon);
+		var end = new google.maps.LatLng(result[display_id].lat, result[display_id].lon );
+        display = new google.maps.DirectionsRenderer();
+        services = new google.maps.DirectionsService();
+		for (var i=0; i<directionArray.length; i++){
+			directionArray[i].setMap(null);	
+		}
+		directionArray=[];
+        display.setMap(map);
+            var request ={
+                origin : start,
+                destination:end,
+				drivingOptions: {
+					departureTime: new Date(Date.now()),  // for the time N milliseconds from now.
+					trafficModel: 'optimistic'
+				  },
+                travelMode: 'DRIVING'
+            };
+
+            services.route(request,function(response,status){
+                if(status =='OK'){
+                    display.setDirections(response);
+					var route = response.routes[0];
+					var leg = response.routes[0].legs[0];
+					var polyline = route.overview_polyline;
+					var distance = route.legs[0].distance.value;
+					var duration = route.legs[0].duration.value;
+
+				document.getElementById("route").innerHTML="<h3> Distance: "+distance/1000+"km  Time: "+(new Date(duration * 1000).toISOString().slice(11, 19))+"</h3>";
+				var ex_list=document.querySelectorAll(".dl");
+				console.log(ex_list.length)
+				for (var i=0; i< ex_list.length; i++){
+					ex_list[i].remove();
+				}
+
+					for (var i=0; i< route.legs[0].steps.length; i++){
+						var newli = document.createElement("li");
+						newli.id="li"+i;
+						newli.className="dl";
+						newli.innerHTML = (route.legs[0].steps[i].instructions);
+						console.log(route.legs[0].steps[i].instructions);
+						document.getElementById("direction").appendChild(newli);
+					}
+                }
+            });
+		directionArray.push(display);
+    }
 
 //modal
-const modalBtn = document.querySelector('.modalBtn');
-const modalBg = document.querySelector('.modal-background');
-const modal = document.querySelector('.modal');
+
 const searchBtn = document.querySelector('.searchBtn');
 const zipInput = document.querySelector('.zipInput');
 
-modalBtn.addEventListener('click', () => {
-	modal.classList.add('is-active');
-})
 
 searchBtn.addEventListener('click', () => {
-	if(zipInput.value==''){
-		document.querySelector('.error').innerHTML = 'Please enter a valid Zip Code.';
+	if((zipInput.value=='')||(isNaN(zipInput.value))){
+		alert('Please enter a valid Zip Code.');
 	}
-	else modal.classList.remove('is-active');
+	else {
+		check_postal_code(zipInput.value,-1);
+	}
+
 })
+
+//document.getElementById("abc").addEventListener('click', initMap);
+fetchButton.addEventListener('click', searchButtonHandler);
+document.querySelector("#shop_list").addEventListener("click", historyButtonHandler);
+
+
+
+
 
 
