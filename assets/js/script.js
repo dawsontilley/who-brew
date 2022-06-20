@@ -100,13 +100,13 @@ function Create_Button(){
 	display_id=0;
 	diaplay_shop_info(display_id);
 	update_marker();	
-	document.getElementById(display_id).setAttribute("style" , "color: red;");
+	document.getElementById(display_id).setAttribute("style" , "color: black;");
  }
 
  //display the shop information in the shop detail window
  function diaplay_shop_info(id){	
 	document.getElementById(display_id).setAttribute("style" , "color: white;");	
-	document.getElementById(id).setAttribute("style" , "color: red;");
+	document.getElementById(id).setAttribute("style" , "color: black;");
 	document.getElementById("name").innerHTML=result[id].name;
 	document.getElementById("address").innerHTML="Addr: "+result[id].street+" , "+result[id].city+" , "+result[id].state+", United State.";
 	document.getElementById("phone").innerHTML="Phone: "+result[id].phone;

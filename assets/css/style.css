@@ -1,5 +1,5 @@
-html{
-width:100%;
+*{
+    box-sizing: border-box;
 }
 .h1{
     text-align: center;
@@ -7,15 +7,36 @@ width:100%;
 h2{
     padding-top: 10px;
     font-size:calc(100%+1vw+1vh);
+    color: rgb(180, 83, 9);
 }
 h3{
     font-size: medium;
+    color: rgb(180, 83, 9);
 }
 Header{
-padding: 20px;
-background-color: rgb(14, 66, 111);
-color:white;
-text-align: center;
+    margin: 5px 5px;
+    padding: 20px;
+    background-color: rgb(255, 251, 235);
+    color: rgb(180, 83, 9);
+    text-align: center;
+}
+/* .logo{
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 38%;
+    float: left;
+    max-width: 100%;
+} */
+img {
+    position: absolute;
+    top: 18px;
+    left: 15px;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(180, 83, 9);  
+    border-radius: 4px;
+    padding: 5px;
+    float: left;
 }
 .container{
     padding-top: 50px;
@@ -25,8 +46,7 @@ text-align: center;
 }
 .search_area{
     padding-bottom: 20px;
-    border-bottom: 5px;
-  border-bottom-style:solid;
+    border-bottom: 5px solid rgb(180, 83, 9)
 }
 .btn, 
 .city_name,
@@ -35,11 +55,25 @@ text-align: center;
     margin-bottom: 10px;
     max-width: 90%;
     margin-left: 5%;
-    height:40px;
-    
+    height:40px;    
+}
+.btn{
+    background-color: rgb(180, 83, 9);
+    color: #ffc457;
+    border: none;
+}
+.btn:hover{
+    color: rgb(180, 83, 9);
+    border: none;
+    background-color: #ffc457;
+}
+.city_name:hover{
+    color: rgb(180, 83, 9);
+    border: none;
+    background-color: #ffc457;
 }
 .shop{
-    border-style: solid;
+    border: 3px solid rgb(180,83,9);
     text-align: left;
     margin-bottom:30px ;
     height:200px;
@@ -54,6 +88,7 @@ h2{
 .label{
     margin-left: 5%;
     font-size:30px;
+    color: rgb(180, 83, 9);
 }
 .card_header{    
     margin-left: 2%;
