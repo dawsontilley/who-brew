@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 html{
 width:100%;
+=======
+*{
+    box-sizing: border-box;
+>>>>>>> develop
 }
 .h1{
     text-align: center;
@@ -7,12 +12,45 @@ width:100%;
 h2{
     padding-top: 10px;
     font-size:calc(100%+1vw+1vh);
+<<<<<<< HEAD
 }
 Header{
 padding: 20px;
 background-color: rgb(14, 66, 111);
 color:white;
 text-align: center;
+=======
+    color: rgb(180, 83, 9);
+}
+h3{
+    font-size: medium;
+    color: rgb(180, 83, 9);
+}
+Header{
+    margin: 5px 5px;
+    padding: 20px;
+    background-color: rgb(255, 251, 235);
+    color: rgb(180, 83, 9);
+    text-align: center;
+}
+/* .logo{
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 38%;
+    float: left;
+    max-width: 100%;
+} */
+img {
+    position: absolute;
+    top: 18px;
+    left: 15px;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(180, 83, 9);  
+    border-radius: 4px;
+    padding: 5px;
+    float: left;
+>>>>>>> develop
 }
 .container{
     padding-top: 50px;
@@ -22,20 +60,50 @@ text-align: center;
 }
 .search_area{
     padding-bottom: 20px;
+<<<<<<< HEAD
     border-bottom: 5px;
   border-bottom-style:solid;
 }
 .btn, 
 .city_name{
+=======
+    border-bottom: 5px solid rgb(180, 83, 9)
+}
+.btn, 
+.city_name,
+.zipInput{
+>>>>>>> develop
     display: block;
     margin-bottom: 10px;
     max-width: 90%;
     margin-left: 5%;
+<<<<<<< HEAD
     height:40px;
     
 }
 .shop{
     border-style: solid;
+=======
+    height:40px;    
+}
+.btn{
+    background-color: rgb(180, 83, 9);
+    color: #ffc457;
+    border: none;
+}
+.btn:hover{
+    color: rgb(180, 83, 9);
+    border: none;
+    background-color: #ffc457;
+}
+.city_name:hover{
+    color: rgb(180, 83, 9);
+    border: none;
+    background-color: #ffc457;
+}
+.shop{
+    border: 3px solid rgb(180,83,9);
+>>>>>>> develop
     text-align: left;
     margin-bottom:30px ;
     height:200px;
@@ -50,6 +118,10 @@ h2{
 .label{
     margin-left: 5%;
     font-size:30px;
+<<<<<<< HEAD
+=======
+    color: rgb(180, 83, 9);
+>>>>>>> develop
 }
 .card_header{    
     margin-left: 2%;
@@ -63,7 +135,11 @@ p{
 
 #map {
     height:800px;;
+<<<<<<< HEAD
     width: 100%;
+=======
+    width: 70%;
+>>>>>>> develop
     margin-top: 15px;
   }
 
@@ -73,4 +149,14 @@ p{
 #url{
     
     margin-left: 5%; 
+<<<<<<< HEAD
+=======
+}
+#direction_detail{
+    width: 30%;
+    
+}
+#diestion{
+font-size: 14px;
+>>>>>>> develop
 }
