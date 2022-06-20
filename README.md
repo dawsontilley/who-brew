@@ -78,10 +78,10 @@ THEN I see the corresponding brewery highlighted in the list
 ## Review
 
 * URL: 
-
+https://dawsontilley.github.io/who-brew/
 
 * Repository: 
-
+https://github.com/dawsontilley/who-brew
 
 * Screenshot:
-<img src="">
+<img src="./assets/images/Who-Brew_Homepage.png">
