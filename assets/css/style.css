@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-html{
-width:100%;
-=======
 *{
     box-sizing: border-box;
->>>>>>> develop
 }
 .h1{
     text-align: center;
@@ -12,14 +7,6 @@ width:100%;
 h2{
     padding-top: 10px;
     font-size:calc(100%+1vw+1vh);
-<<<<<<< HEAD
-}
-Header{
-padding: 20px;
-background-color: rgb(14, 66, 111);
-color:white;
-text-align: center;
-=======
     color: rgb(180, 83, 9);
 }
 h3{
@@ -50,7 +37,6 @@ img {
     border-radius: 4px;
     padding: 5px;
     float: left;
->>>>>>> develop
 }
 .container{
     padding-top: 50px;
@@ -60,30 +46,15 @@ img {
 }
 .search_area{
     padding-bottom: 20px;
-<<<<<<< HEAD
-    border-bottom: 5px;
-  border-bottom-style:solid;
-}
-.btn, 
-.city_name{
-=======
     border-bottom: 5px solid rgb(180, 83, 9)
 }
 .btn, 
 .city_name,
 .zipInput{
->>>>>>> develop
     display: block;
     margin-bottom: 10px;
     max-width: 90%;
     margin-left: 5%;
-<<<<<<< HEAD
-    height:40px;
-    
-}
-.shop{
-    border-style: solid;
-=======
     height:40px;    
 }
 .btn{
@@ -103,7 +74,6 @@ img {
 }
 .shop{
     border: 3px solid rgb(180,83,9);
->>>>>>> develop
     text-align: left;
     margin-bottom:30px ;
     height:200px;
@@ -118,10 +88,7 @@ h2{
 .label{
     margin-left: 5%;
     font-size:30px;
-<<<<<<< HEAD
-=======
     color: rgb(180, 83, 9);
->>>>>>> develop
 }
 .card_header{    
     margin-left: 2%;
@@ -131,26 +98,18 @@ p{
     margin-bottom: 0;
     display: flex;
 }
-
-
 #map {
-    height:800px;;
-<<<<<<< HEAD
+    height:800px;
     width: 100%;
-=======
     width: 70%;
->>>>>>> develop
+    width: 70%;
     margin-top: 15px;
-  }
-
+}
 .text-reponsive{
     font-size:calc(100%+1vw+1vh);
 }
 #url{
-    
-    margin-left: 5%; 
-<<<<<<< HEAD
-=======
+    margin-left: 5%;
 }
 #direction_detail{
     width: 30%;
@@ -158,5 +117,4 @@ p{
 }
 #diestion{
 font-size: 14px;
->>>>>>> develop
 }

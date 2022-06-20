@@ -2,10 +2,7 @@ var repoList = document.querySelector('ul');
 var fetchButton = document.getElementById("search");
 var openweatherkey = '5047b93d8c8a3e00e320b778163f5545';
 var googlekey = 'AIzaSyA5ury2VC7bslPGGb5hP-9OUTPdMF1fiIY';
-<<<<<<< HEAD
-=======
 let zipcode = '';
->>>>>>> develop
 // `getApi` function is called when the `fetchButton` is clicked
 var DataObj = {
 	name: "",
@@ -19,16 +16,6 @@ var DataObj = {
 	type: "",
 	postal_code:"",
   };
-<<<<<<< HEAD
-var result=[];
-var display_city;
-var display_id;
-var markersArray = [];
-
-function drawmap(lat,lon)
-{
-    map = new google.maps.Map( document.getElementById( 'map' ), {
-=======
 
 var result=[];
 var markersArray = [];
@@ -47,7 +34,6 @@ var current_lon;
 function drawmap(lat,lon)
 {
     map = new google.maps.Map( document.getElementById( 'map'), {
->>>>>>> develop
     center: {
       lat: lat,
       lng: lon
@@ -56,21 +42,6 @@ function drawmap(lat,lon)
   });
 }
 
-<<<<<<< HEAD
-
-  function create_marker(){
-  // Create markers.
-  var color;
-  var temp;
-  clearAnimation();
-  for (let i = 0; i < result.length; i++) {
-	if (i==display_id) color="#F44336";
-	else color="#000000";
-	check_postal_code(result[i].postal_code,i,color);
-  }
-}
-
-=======
 // create or update the markers
 function update_marker(){
   // Create markers.
@@ -111,7 +82,6 @@ function update_marker(){
   	}
 }
 //create the shop list
->>>>>>> develop
 function Create_Button(){
 	document.getElementById("history").remove();
 	var newDiv = document.createElement("div");
@@ -123,20 +93,6 @@ function Create_Button(){
 		newButton.className = 'btn btn-secondary w-100' ;
 		newButton.id=i;
 		newDiv.appendChild(newButton);
-<<<<<<< HEAD
-	}
-	
-	document.getElementById("shop_list").appendChild(newDiv);
-	display_id=0;
-	diaplay_shop_info(display_id);
-	create_marker();	
-	document.getElementById(display_id).setAttribute("style" , "color: red;");
- }
-
- function diaplay_shop_info(id){	
-	document.getElementById(display_id).setAttribute("style" , "color: white;");	
-	document.getElementById(id).setAttribute("style" , "color: red;");
-=======
 		if((result[i].lat==null)||(result[i].lon==null))
 		check_postal_code(result[i].postal_code,i);
 	}
@@ -151,7 +107,6 @@ function Create_Button(){
  function diaplay_shop_info(id){	
 	document.getElementById(display_id).setAttribute("style" , "color: white;");	
 	document.getElementById(id).setAttribute("style" , "color: black;");
->>>>>>> develop
 	document.getElementById("name").innerHTML=result[id].name;
 	document.getElementById("address").innerHTML="Addr: "+result[id].street+" , "+result[id].city+" , "+result[id].state+", United State.";
 	document.getElementById("phone").innerHTML="Phone: "+result[id].phone;
@@ -161,132 +116,6 @@ function Create_Button(){
 	display_id=id;
  }
 
-<<<<<<< HEAD
-
-function check_location(c_name) {
-	display_city= c_name.charAt(0).toUpperCase() + c_name.slice(1);
-	var lat,lon;
-  var url= 'https://maps.googleapis.com/maps/api/geocode/json?address='+c_name+'&key='+googlekey;
-
-  fetch(url)  
-	.then(function(response) { 
-    if (response.status >= 200 && response.status <= 299) {
-      return response.json();
-    } else {      
-      throw Error(response.status+" "+response.statusText);
-    }
-	}) // Convert data to json
-	.then(function(data) {
-		lat=data.results[0].geometry.location.lat;
-		lon=data.results[0].geometry.location.lng;
-		brewery_name(c_name);
-	})
-	.finally(function(){
-		drawmap(lat,lon);
-	})
-	.catch(function(error) {
- 	console.log(error);
-	});
-}
-
-
-function check_postal_code(postal_code,pos,color) {
-	var lat,lon;
-	var url= 'https://maps.googleapis.com/maps/api/geocode/json?key='+googlekey+'&components=postal_code:'+postal_code;
-	var dis_effect;
-
-  fetch(url)  
-	.then(function(response) { 
-	    if (response.status >= 200 && response.status <= 299) {
-      return response.json();
-    } else {      
-      throw Error(response.status+" "+response.statusText);
-    }
-	}) // Convert data to json
-	.then(function(data) {
-		if (data.status=='OK'){
-		lat=data.results[0].geometry.location.lat;
-		lon=data.results[0].geometry.location.lng;
-
-	}
-	})
-	.finally(function(){
-		if (color=="#000000") dis_effect=null;
-		else dis_effect=google.maps.Animation.BOUNCE;
-	    marker=new google.maps.Marker({
-			position: new google.maps.LatLng(lat,lon),
-			id:pos,
-			icon: {
-				url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-				labelOrigin: new google.maps.Point(75, 32),
-				size: new google.maps.Size(32,32),
-				anchor: new google.maps.Point(16,32)
-			  },
-
-			  animation: dis_effect,
-		  	  map: map,
-		});
-		markersArray.push(marker);
-	})
-
-	.catch(function(error) {
- console.log(error);
-	});
-}
-
-function clearAnimation() {
-	if (markersArray) {
-	  for (i in markersArray) {
-		markersArray[i].setAnimation(null);
-	  }
-	}
-  }
-
-
-function brewery_name(city_name){
-	display_city= city_name.charAt(0).toUpperCase() + city_name.slice(1);
-	result=[];
-	markersArray=[];
-  var url= 'https://api.openbrewerydb.org/breweries?by_city='+city_name.replace(" ","_")+'&per_page=20';
-
-  fetch(url)  
-  .then(function(response) { 
-    if (response.status >= 200 && response.status <= 299) {
-      return response.json();
-    } else {      
-      throw Error(response.status+" "+response.statusText);
-    }
-	}) // Convert data to json
-	.then(function(data) {
-		result=[];
-		for(i=0;i<data.length;i++){
-			DataObj = {
-			name: data[i].name,
-			lat: data[i].latitude,
-			lon: data[i].longitude,
-			street: data[i].street,
-			phone: data[i].phone,
-			url: data[i].website_url,
-			city: data[i].city,
-			state:data[i].state,
-			type: data[i].brewery_type,
-			postal_code: data[i].postal_code
-	  	};
-	  	result[i]=DataObj;
-	}
-	Create_Button();	
-
-})
-	.catch(function(error) {
- 		console.log(error);
-	});
-}
-
-
-function historyButtonHandler(event){
-	diaplay_shop_info(event.target.id);
-	create_marker();
-=======
 //Call the API and check the city geometry detail
 function check_location(city_name) {
 	display_city= city_name.charAt(0).toUpperCase() + city_name.slice(1);
@@ -390,15 +219,12 @@ function historyButtonHandler(event){
 	diaplay_shop_info(event.target.id);
 	update_marker();
 	}
->>>>>>> develop
 }
 
 function searchButtonHandler(event){
     check_location(document.getElementById("city_name").value);
 }
 
-<<<<<<< HEAD
-=======
 function marker_click(pos){
 	var match;
 	diaplay_shop_info(pos);
@@ -489,7 +315,6 @@ searchBtn.addEventListener('click', () => {
 })
 
 //document.getElementById("abc").addEventListener('click', initMap);
->>>>>>> develop
 fetchButton.addEventListener('click', searchButtonHandler);
 document.querySelector("#shop_list").addEventListener("click", historyButtonHandler);
 
