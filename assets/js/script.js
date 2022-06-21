@@ -322,4 +322,3 @@ document.querySelector("#shop_list").addEventListener("click", historyButtonHand
 
 
 
-

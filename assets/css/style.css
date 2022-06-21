@@ -3,6 +3,7 @@
 }
 .h1{
     text-align: center;
+    font-size: x-large;
 }
 h2{
     padding-top: 10px;
@@ -29,9 +30,9 @@ Header{
 } */
 img {
     position: absolute;
-    top: 18px;
+    top: 15px;
     left: 15px;
-    height: auto;
+    height: 55px;
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(180, 83, 9);  
     border-radius: 4px;
@@ -40,6 +41,7 @@ img {
 }
 .container{
     padding-top: 50px;
+    margin: 5px 5px;
 }
 .history{
     padding-top: 50px;

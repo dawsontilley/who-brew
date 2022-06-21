@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8"> 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="stylesheet" href="./assets/css/landing.css">
   <title>Who-Brew!</title>
@@ -11,21 +12,31 @@
 
 <body>
     <header>
-        <img class="logo" src="./assets/images/alcohol-beer-celebration-cheers-drink-happy-svgrepo-com.svg">
-        <h1>Who-Brew!</h1>
+        <img class="img" src="./assets/images/alcohol-beer-celebration-cheers-drink-happy-svgrepo-com.svg">
+        <h1 class="txt">Who-Brew!</h1>
     </header>
     <main id="bgimg">
-      <h2>
+      <h2 class="txt">
         The best way to find breweries in your area.
       </h2>
-      <h2>
+      <h2 class="txt">
         Search for breweries and plan your trip either with friends or fly solo.
       </h2>
-      <a href="./search.html">
-        <button class="btn">Let's GO!</button>
+      <a>
+        <button class="btn letsgobtn">Let's GO!</button>
       </a>
     </main>
-
+    <div class="modal">
+      <div class="modal-background">
+        <div class="modal-content">
+          <h2 class="title">Please enter your Zip Code!</h2>
+          <input type="input modinput" placeholder="_____-____" class="zipinput">
+          <h6 class="error is-hidden">Incorrect Zip Code!</h6>
+          <a href="./search.html"><button class="button zipbtn modbtn">Search!</button></a>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/js/scriptlanding.js"></script>
 </body>
 
 </html>
