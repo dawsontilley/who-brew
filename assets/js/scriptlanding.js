@@ -2,6 +2,7 @@ var googlekey = 'AIzaSyA5ury2VC7bslPGGb5hP-9OUTPdMF1fiIY';
 
 document.querySelector('.letsgobtn').addEventListener('click', () => {
 	document.querySelector('.modal').classList.add('is-active');
+    document.querySelector('.error').classList.remove('is-active');
     document.querySelector('.zipinput').value = '';
     localStorage.clear();
 });
@@ -21,6 +22,7 @@ document.querySelector('.zipbtn').addEventListener('click', () => {
         console.log(city);
         localStorage.setItem('city',JSON.stringify(city));
 	    document.querySelector('.modal').classList.remove('is-active');
+        window.location = './search.html';
     })
     .catch(()=>{
         document.querySelector('.error').classList.remove('is-hidden');

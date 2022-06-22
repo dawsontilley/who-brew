@@ -222,7 +222,9 @@ function historyButtonHandler(event){
 }
 
 function searchButtonHandler(event){
-    check_location(document.getElementById("city_name").value);
+	var cityName = JSON.parse(localStorage.getItem('city'));
+	cityName = cityName[1];
+    check_location(cityName);
 }
 
 function marker_click(pos){
@@ -305,16 +307,22 @@ const zipInput = document.querySelector('.zipInput');
 
 
 searchBtn.addEventListener('click', () => {
-	if((zipInput.value=='')||(isNaN(zipInput.value))){
-		alert('Please enter a valid Zip Code.');
-	}
-	else {
-		check_postal_code(zipInput.value,-1);
-	}
+	// if((zipInput.value=='')||(isNaN(zipInput.value))){
+	// 	alert('Please enter a valid Zip Code.');
+	// }
+	// else {
+	// 	check_postal_code(zipInput.value,-1);
+	// }
+	var zip = JSON.parse(localStorage.getItem('city'));
+	check_postal_code(zip[0],-1);
 
 })
 
 //document.getElementById("abc").addEventListener('click', initMap);
+window.onload = function (){
+	fetchButton.click();
+	searchBtn.click();
+};
 fetchButton.addEventListener('click', searchButtonHandler);
 document.querySelector("#shop_list").addEventListener("click", historyButtonHandler);
 
