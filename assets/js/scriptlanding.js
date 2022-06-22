@@ -15,7 +15,14 @@ document.querySelector('.zipbtn').addEventListener('click', () => {
     fetch(url)
     .then(response => response.json())
     .then(data => {
-        cityname = data.results[0].address_components[1].short_name;
+        cityname = data.results[0].address_components[2].short_name;
+        lastIndexOfSpace = cityname.lastIndexOf(' ');
+        if (lastIndexOfSpace === -1) {
+            cityname = cityname;
+        }
+        else {
+            cityname = cityname.substring(0, lastIndexOfSpace);
+        }
         var city = [];
         city.push(zipCode);
         city.push(cityname);
@@ -28,3 +35,10 @@ document.querySelector('.zipbtn').addEventListener('click', () => {
         document.querySelector('.error').classList.remove('is-hidden');
     })
 });
+
+window.onload = function(){
+    if(localStorage.getItem('update')==='true'){
+        console.log('should have been clicked')
+        document.querySelector('.letsgobtn').click();
+    }
+};

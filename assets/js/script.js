@@ -132,6 +132,7 @@ function check_location(city_name) {
 		}
 		}) // Convert data to json
 		.then(function(data) {
+			// console.log(data);
 			lat=data.results[0].geometry.location.lat;
 			lon=data.results[0].geometry.location.lng;
 			brewery_name(city_name);
@@ -140,7 +141,7 @@ function check_location(city_name) {
 			drawmap(lat,lon);
 		})
 		.catch(function(error) {
-			console.log(error);
+			// console.log(error);
 		});
 }
 
@@ -170,7 +171,7 @@ function check_postal_code(postal_code,pos) {
 			if (pos<0) search_direction();
 		})
 		.catch(function(error) {
-			console.log(error);
+			// console.log(error);
 		});
 }
 
@@ -209,7 +210,7 @@ function brewery_name(city_name){
 		Create_Button();
 	})
 		.catch(function(error) {
-			console.log(error);
+			// console.log(error);
 		});
 	}
 
@@ -224,6 +225,7 @@ function historyButtonHandler(event){
 function searchButtonHandler(event){
 	var cityName = JSON.parse(localStorage.getItem('city'));
 	cityName = cityName[1];
+	// console.log(cityName);
     check_location(cityName);
 }
 
@@ -282,7 +284,7 @@ function search_direction() {
 
 				document.getElementById("route").innerHTML="<h3> Distance: "+distance/1000+"km  Time: "+(new Date(duration * 1000).toISOString().slice(11, 19))+"</h3>";
 				var ex_list=document.querySelectorAll(".dl");
-				console.log(ex_list.length)
+				// console.log(ex_list.length)
 				for (var i=0; i< ex_list.length; i++){
 					ex_list[i].remove();
 				}
@@ -292,7 +294,7 @@ function search_direction() {
 						newli.id="li"+i;
 						newli.className="dl";
 						newli.innerHTML = (route.legs[0].steps[i].instructions);
-						console.log(route.legs[0].steps[i].instructions);
+						// console.log(route.legs[0].steps[i].instructions);
 						document.getElementById("direction").appendChild(newli);
 					}
                 }
@@ -303,7 +305,8 @@ function search_direction() {
 //modal
 
 const searchBtn = document.querySelector('.searchBtn');
-const zipInput = document.querySelector('.zipInput');
+const zipInput = JSON.parse(localStorage.getItem('city'))[0];
+document.querySelector('#zipInput').value = zipInput;
 
 
 searchBtn.addEventListener('click', () => {
@@ -313,6 +316,8 @@ searchBtn.addEventListener('click', () => {
 	// else {
 	// 	check_postal_code(zipInput.value,-1);
 	// }
+	// searchBtn.style.backgroundColor = 'rgb(180,83,9)';
+	// searchBtn.style.color = '#ffc457';
 	var zip = JSON.parse(localStorage.getItem('city'));
 	check_postal_code(zip[0],-1);
 
@@ -321,12 +326,14 @@ searchBtn.addEventListener('click', () => {
 //document.getElementById("abc").addEventListener('click', initMap);
 window.onload = function (){
 	fetchButton.click();
-	searchBtn.click();
 };
 fetchButton.addEventListener('click', searchButtonHandler);
 document.querySelector("#shop_list").addEventListener("click", historyButtonHandler);
 
-
+document.querySelector('#update').addEventListener('click',()=>{
+	localStorage.setItem('update','true');
+	window.location = "./index.html";
+})
 
 
 

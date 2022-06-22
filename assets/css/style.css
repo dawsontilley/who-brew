@@ -8,6 +8,7 @@
 h2{
     padding-top: 10px;
     font-size:calc(100%+1vw+1vh);
+    font-weight: bolder;
     color: rgb(180, 83, 9);
 }
 h3{
@@ -40,31 +41,27 @@ img {
     float: left;
 }
 .container{
-    padding-top: 50px;
+    padding-top: 0px;
     margin: 5px 5px;
 }
-.history{
-    padding-top: 50px;
-}
 .search_area{
-    padding-bottom: 20px;
-    border-bottom: 5px solid rgb(180, 83, 9)
+    border: 3px solid rgb(180, 83, 9);
+    margin-left: 5px;
 }
 .btn, 
 .city_name,
 .zipInput{
-    display: block;
-    margin-bottom: 10px;
     max-width: 90%;
-    margin-left: 5%;
-    height:40px;    
+    margin-left: 5px;  
 }
 .btn{
     background-color: rgb(180, 83, 9);
     color: #ffc457;
     border: none;
+    margin-bottom: 10px;
 }
-.btn:hover{
+.btn:hover,
+.btn:focus{
     color: rgb(180, 83, 9);
     border: none;
     background-color: #ffc457;
@@ -77,8 +74,9 @@ img {
 .shop{
     border: 3px solid rgb(180,83,9);
     text-align: left;
-    margin-bottom:30px ;
-    height:200px;
+    margin-bottom:30px;
+    margin-right: 5px;
+    height: 213px;
 }
 h2{
     margin-left: 5%; 
@@ -88,8 +86,8 @@ h2{
     height:60px;
 }
 .label{
-    margin-left: 5%;
-    font-size:30px;
+    margin-left: 5px;
+    font-size: 24px;
     color: rgb(180, 83, 9);
 }
 .card_header{    
