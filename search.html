@@ -18,9 +18,9 @@
 
   <mainbody class="container">
     <section class="row">     
-      <div class="col-15 col-md-3">
+      <div class="col-15 col-md-3 is-flex">
           <div class="col-12 col-md-3:w-100 search_area" id="search_area">
-            <form >
+            <form class="search-form">
               <!-- <label for="location" class="label"><b>Search for a city:</b></label><br> -->
               <!-- <input type="text" id="city_name" class="city_name w-100" name="city_name" value="Los Angeles"> -->
               <label for="cur_location" class="label"><b>Your Loaction: (Zip Code)</b></label><br>
@@ -33,15 +33,15 @@
           </div>
         </div>
       
-      <div class="col-12 col-md-9">
-        <section class="row justify-content-start shop" id="shop">
+      <div class="col-12 col-md-9 Directions">
+        <section class="row justify-content-start shop direct" id="shop">
           <div id="shop_detail">
             <h2 id="name"></h2>
             <p id="address"></p>            
             <p id="phone"></p>          
             <p id="type"></p>          
             <a id="url" href="https://spotify.com"> </a>       
-            <button type="button" id="searchBtn" class="btn btn-primary searchBtn w-100">Get Directions!</button>           
+            <button type="button" id="searchBtn" class="btn btn-primary searchBtn w-100 is-vcentered">Get Directions!</button>           
           </div>
         </section>
         <section class="row justify-content-start" id="forecast_header">

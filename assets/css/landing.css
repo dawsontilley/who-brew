@@ -47,3 +47,21 @@ a{
     background-color: #ffc457;
     color: rgb(180, 83, 9);
 }
+
+
+
+@media only screen and (min-width: 1000px) {
+    .direct{
+      height:300px
+    }
+    .search-form{
+        height: 300px;
+        border: 3px solid rgb(180,83,9);
+    }
+    #searchBtn{
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+        height: 20%;
+  }
+}
