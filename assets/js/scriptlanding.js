@@ -15,7 +15,9 @@ document.querySelector('.zipbtn').addEventListener('click', () => {
     fetch(url)
     .then(response => response.json())
     .then(data => {
-        cityname = data.results[0].address_components[2].short_name;
+        if(data.results[0].address_components[2].types[0]==='administrative_area_level_2') cityname = data.results[0].address_components[2].short_name;
+        else if(data.results[0].address_components[3].types[0]==='administrative_area_level_2') cityname = data.results[0].address_components[3].short_name;
+        else if(data.results[0].address_components[4].types[0]==='administrative_area_level_2') cityname = data.results[0].address_components[4].short_name;
         lastIndexOfSpace = cityname.lastIndexOf(' ');
         if (lastIndexOfSpace === -1) {
             cityname = cityname;
